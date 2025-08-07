@@ -74,6 +74,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Install Blender
+        run: |
+          sudo apt update
+          sudo apt install -y blender
+          blender --version
+
+      - name: Set Blender path environment variable
+        run: echo "BLENDER_PATH=$(which blender)" >> $GITHUB_ENV
+
       # Setup .NET
       - name: Setup .NET SDK
         if: needs.check.outputs.using_dotnet == 'true'
