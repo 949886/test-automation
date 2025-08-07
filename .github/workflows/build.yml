@@ -136,8 +136,8 @@ jobs:
           env
 
       # Build the project for each platform
-      - name: Build Godot Solutions
-        run: godot --headless --build-solutions --quit || exit 0
+      # - name: Build Godot Solutions
+      #   run: godot --headless --build-solutions --quit || exit 0
         
       - name: Export Project
         run: |
