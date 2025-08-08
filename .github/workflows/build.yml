@@ -88,7 +88,7 @@ jobs:
         run: |
           which blender
           echo "BLENDER_PATH=$(which blender)" >> $GITHUB_ENV
-#
+
 #      - name: Install xorg & xz-utils
 #        if: matrix.platform.name != 'macOS'
 #        run: |
@@ -161,6 +161,9 @@ jobs:
 
       - name: Display structure of build files
         run: ls -R ./build
+
+      - name: Display structure of workspace
+        run: ls -aR | perl -ne 'if(/^(.+):$/){$d=$1;next}next if /^\s*$/;chomp;$p=$d? "$d/$_":$_;$p=~s/[^-][^\/]*\//    /g;$p=~s/^    (\S)/└── \1/;$p=~s/(^    |    (?= ))/│   /g;$p=~s/    (\S)/└── \1/;print "$p\n"'
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
