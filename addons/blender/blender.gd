@@ -21,7 +21,7 @@ func _enter_tree() -> void:
 	else: print("[Godot Editor] Environment variable BLENDER_PATH not set, using default paths.")
 	
 	# Set default Blender path based on OS
-	if OS.get_name() != "Linux":
+	if OS.get_name() == "Linux":
 		settings.set_setting("filesystem/import/blender/blender_path", BLENDER_LINUX_PATH)
 	if OS.get_name() == "macOS":
 		settings.set_setting("filesystem/import/blender/blender_path", BLENDER_MACOS_PATH)
