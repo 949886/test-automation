@@ -45,10 +45,10 @@ jobs:
             system: "ubuntu-latest"
             extension: ".exe"
             csharp: ${{ needs.check.outputs.using_dotnet }}
-          - name: macOS
-            system: "macos-latest"
-            extension: ".app"
-            csharp: ${{ needs.check.outputs.using_dotnet }}
+#          - name: macOS
+#            system: "macos-latest"
+#            extension: ".app"
+#            csharp: ${{ needs.check.outputs.using_dotnet }}
           - name: Linux
             system: "ubuntu-latest"
             extension: ".x86_64"
@@ -81,19 +81,19 @@ jobs:
           sudo apt install -y blender
           blender --version
 
-      - name: Set Blender path
-        if: matrix.platform.name != 'macOS'
-        run: |
-          which blender
-          echo "BLENDER_PATH=$(which blender)" >> $GITHUB_ENV
-
-      - name: Install xorg & xz-utils & xvfb
-        if: matrix.platform.name != 'macOS'
-        run: |
-          sudo apt update
-          sudo apt install -y xorg
-          sudo apt install -y xz-utils
-          sudo apt install -y xvfb
+#      - name: Set Blender path
+#        if: matrix.platform.name != 'macOS'
+#        run: |
+#          which blender
+#          echo "BLENDER_PATH=$(which blender)" >> $GITHUB_ENV
+#
+#      - name: Install xorg & xz-utils & xvfb
+#        if: matrix.platform.name != 'macOS'
+#        run: |
+#          sudo apt update
+#          sudo apt install -y xorg
+#          sudo apt install -y xz-utils
+#          sudo apt install -y xvfb
       
       # Setup .NET
       - name: Setup .NET SDK
