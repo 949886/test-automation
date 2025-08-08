@@ -45,10 +45,10 @@ jobs:
             system: "ubuntu-latest"
             extension: ".exe"
             csharp: ${{ needs.check.outputs.using_dotnet }}
-#          - name: macOS
-#            system: "macos-latest"
-#            extension: ".app"
-#            csharp: ${{ needs.check.outputs.using_dotnet }}
+          - name: macOS
+            system: "macos-latest"
+            extension: ".app"
+            csharp: ${{ needs.check.outputs.using_dotnet }}
           - name: Linux
             system: "ubuntu-latest"
             extension: ".x86_64"
@@ -75,10 +75,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install Blender
-        if: matrix.platform.name != 'macOS'
         run: |
-          sudo apt update
-          sudo apt install -y blender
+          if [[ "$RUNNER_OS" == "Linux" ]]; then
+            sudo apt update
+            sudo apt install -y blender
+          elif [[ "$RUNNER_OS" == "macOS" ]]; then
+            brew install --cask blender
+          fi
           blender --version
 
 #      - name: Set Blender path
