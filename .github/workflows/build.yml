@@ -87,13 +87,12 @@ jobs:
 #          which blender
 #          echo "BLENDER_PATH=$(which blender)" >> $GITHUB_ENV
 #
-#      - name: Install xorg & xz-utils & xvfb
+#      - name: Install xorg & xz-utils
 #        if: matrix.platform.name != 'macOS'
 #        run: |
 #          sudo apt update
 #          sudo apt install -y xorg
 #          sudo apt install -y xz-utils
-#          sudo apt install -y xvfb
       
       # Setup .NET
       - name: Setup .NET SDK
