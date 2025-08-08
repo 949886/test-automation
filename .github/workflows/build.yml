@@ -84,11 +84,10 @@ jobs:
           fi
           blender --version
 
-#      - name: Set Blender path
-#        if: matrix.platform.name != 'macOS'
-#        run: |
-#          which blender
-#          echo "BLENDER_PATH=$(which blender)" >> $GITHUB_ENV
+      - name: Set Blender path
+        run: |
+          which blender
+          echo "BLENDER_PATH=$(which blender)" >> $GITHUB_ENV
 #
 #      - name: Install xorg & xz-utils
 #        if: matrix.platform.name != 'macOS'
