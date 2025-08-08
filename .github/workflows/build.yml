@@ -81,12 +81,20 @@ jobs:
           sudo apt install -y blender
           blender --version
 
-      - name: Set Blender path environment variable
+      - name: Set Blender path
         if: matrix.platform.name != 'macOS'
         run: |
           which blender
           echo "BLENDER_PATH=$(which blender)" >> $GITHUB_ENV
 
+      - name: Install xorg & xz-utils & xvfb
+        if: matrix.platform.name != 'macOS'
+        run: |
+          sudo apt update
+          sudo apt install -y xorg
+          sudo apt install -y xz-utils
+          sudo apt install -y xvfb
+      
       # Setup .NET
       - name: Setup .NET SDK
         if: needs.check.outputs.using_dotnet == 'true'
