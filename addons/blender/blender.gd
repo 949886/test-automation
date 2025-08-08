@@ -2,11 +2,17 @@
 extends EditorPlugin
 
 const BLENDER_LINUX_PATH: String = "/usr/bin/blender"
-const BLENDER_WINDOWS_PATH: String = "C:/Program Files/Blender Foundation/Blender/blender.exe"
 const BLENDER_MACOS_PATH: String = "/opt/homebrew/bin/blender"
 
 func _enter_tree() -> void:
+	# Detect if running from CLI (headless/export/script mode)
+	var args := OS.get_cmdline_args()
+	print("[Godot Editor] Command line arguments: ", args)
+#	if not "--headless" in args: return  # Skip if running normal editor session
+	
 	var settings: EditorSettings = EditorInterface.get_editor_settings()
+
+	# Read Blender path from environment variable
 	var blender_path := OS.get_environment("BLENDER_PATH")
 	if not blender_path.is_empty():
 		settings.set_setting("filesystem/import/blender/blender_path", blender_path)
@@ -14,6 +20,7 @@ func _enter_tree() -> void:
 		return
 	else: print("[Godot Editor] Environment variable BLENDER_PATH not set, using default paths.")
 	
+	# Set default Blender path based on OS
 	if OS.get_name() != "Linux":
 		settings.set_setting("filesystem/import/blender/blender_path", BLENDER_LINUX_PATH)
 	if OS.get_name() == "macOS":
