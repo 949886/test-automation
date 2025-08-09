@@ -8,8 +8,8 @@ func _enter_tree() -> void:
 	# Detect if running from CLI (headless/export/script mode)
 	var args := OS.get_cmdline_args()
 	print("[Godot Editor] Command line arguments: ", args)
-#	if not "--headless" in args: return  # Skip if running normal editor session
-	
+	if not "--export-release" in args: return  # Skip if running normal editor session
+
 	var settings: EditorSettings = EditorInterface.get_editor_settings()
 
 	# Read Blender path from environment variable
@@ -19,13 +19,13 @@ func _enter_tree() -> void:
 		print("[Godot Editor] Blender path set from environment variable: ", blender_path)
 		return
 	else: print("[Godot Editor] Environment variable BLENDER_PATH not set, using default paths.")
-	
+
 	# Set default Blender path based on OS
 	if OS.get_name() == "Linux":
 		settings.set_setting("filesystem/import/blender/blender_path", BLENDER_LINUX_PATH)
 	if OS.get_name() == "macOS":
 		settings.set_setting("filesystem/import/blender/blender_path", BLENDER_MACOS_PATH)
-		
+
 	print("[Godot Editor] Blender path set to: ", settings.get_setting("filesystem/import/blender/blender_path"))
 
 
