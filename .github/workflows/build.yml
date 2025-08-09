@@ -167,8 +167,17 @@ jobs:
           ls -aR | perl -ne 'if(/^(.+):$/){$d=$1;next}next if /^\s*$/||$_ eq ".\n"||$_ eq "..\n";chomp;$p=$d?"$d/$_":$_;$p=~s/[^-][^\/]*\//    /g;$p=~s/^    (\S)/└── \1/;$p=~s/(^    |    (?= ))/│   /g;$p=~s/    (\S)/└── \1/;print "$p\n"'
           echo "└── [END]"
 
+      # Upload artifact
+      - name : Upload Artifact
+        uses: actions/upload-artifact@v4
+        if: matrix.platform.target != 'Android'
+        with:
+          name: Build-${{ matrix.platform.name }}
+          path: build/${{ matrix.platform.target }}/${{ env.REPO_NAME }}-/${{ matrix.platform.name }}.zip
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
+        if: matrix.platform.target == 'Android'
         with:
-          name: ${{ matrix.platform.name }}
-          path: ./build/${{ matrix.platform.name }}.zip
+          name: Build-${{ matrix.platform.name }}
+          path: build/${{ matrix.platform.target }}/${{ env.REPO_NAME }}-${{ matrix.platform.name }}.apk
